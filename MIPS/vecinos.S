@@ -45,9 +45,6 @@ vecinos:
     sw		a1, O_A1(fp)
     sw		a2, O_A2(fp)
     sw		a3, O_A3(fp)
-    lw		t0, POS_A4(sp)
-    sw		t0, O_A4(fp)
-    sw		zero, O_A5(fp)				# Padding del ABA
 
 
     /* Local and temporary area */
