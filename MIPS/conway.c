@@ -48,8 +48,21 @@ int main(int argc, char** argv) {
     }
 
     if(!argsOk) {
-    	fprintf(stderr, "Error en entrada de parametros, ejecutar ./conway -h "
-    			"para recibir ayuda\n");
+    	fprintf(stderr, "Uso:\n"
+    		"\tconway -h\n"
+    		"\tconway -V\n"
+    		"\tconway i M N inputfile [-o outputprefix]\n"
+    		"Opciones:\n"
+    		"\t-h, --help \tImprime este mensaje.\n"
+    		"\t-V, --version \tDa la versión del programa.\n"
+    		"\t-o \tPrefijo de los archivos de salida.\n"
+    		"Ejemplos:\n"
+    		"\tconway 10 20 20 glider -o estado\n"
+    		"\tRepresenta 10 iteraciones del Juego de la Vida en una matriz de "
+    		"20x20,\n\tcon un estado inicial tomado del archivo ‘‘glider’’.\n\t"
+    		"Los archivos de salida se llamarán estado_n.pbm.\n"
+    		"\tSi no se da un prefijo para los archivos de salida,\n\tel prefijo"
+    		" será el nombre del archivo de entrada.\n");
     	retorno = -1;
     }
     printf("\n");
@@ -58,9 +71,29 @@ int main(int argc, char** argv) {
 
 
 int ejecutarConway(int argc, char** argv) {
-	printf("Generando matriz...\n");
-	unsigned int alto = atoi(argv[2]);
-	unsigned int ancho = atoi(argv[3]);
+	char* puntero;
+	unsigned long altoLong = strtoul(argv[2], &puntero, 10);
+	if (puntero == argv[2]) {
+		fprintf(stderr, "Error al generar matriz, checkear dimensiones\n");
+		return -2;
+	}
+	unsigned long anchoLong = strtoul(argv[3], &puntero, 10);
+	if (puntero == argv[2]) {
+		fprintf(stderr, "Error al generar matriz, checkear dimensiones\n");
+		return -2;
+	}
+	unsigned int alto = 0;
+	unsigned int ancho = 0;
+	unsigned int limite = 0;
+	limite--;
+	
+	if ((altoLong > limite) || (anchoLong > limite)) {
+		fprintf(stderr, "Error al generar matriz, checkear dimensiones\n");
+		return -2;
+	}
+	
+	alto = altoLong;
+	ancho = anchoLong;
 
 	if ((alto == 0) || (ancho == 0)) {
 		fprintf(stderr, "Error al generar matriz, checkear dimensiones\n");
