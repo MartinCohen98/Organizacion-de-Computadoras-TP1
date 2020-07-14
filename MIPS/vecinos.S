@@ -135,5 +135,3 @@ endifCS:
 
     jr 		ra
 .end vecinos
-
-/* compile with gcc -mips32 -mlong32 -mabi=32 -c strlcpy.S */
